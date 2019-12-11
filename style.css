@@ -1,0 +1,57 @@
+html, body{
+    height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    background-color: #222;
+    color: #ccc;
+
+    font-family: sans-serif;
+}
+
+#clock {
+    border: solid 2px #ccc;
+    padding: 24px 32px;
+}
+
+#stats {
+    padding: 0;
+    margin: 0;
+}
+
+.circular {
+    border-radius: 100%;
+}
+
+#sidebar {
+    position: absolute;
+    right: 0;
+    padding: 16px;
+}
+
+.button {
+    height: 48px;
+    width: 48px;
+    padding: 4px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 1px 4px 1px #000;
+    margin: 16px 0;
+    transition: all 0.2s ease-in;
+}
+
+.button:hover {
+    font-weight: bold;
+    cursor: pointer;
+    color: #555;
+    background-color: #ccc;
+    box-shadow: 0 1px 4px 1px #ccc;
+    transition: all 0.2s ease-in;
+}
+
