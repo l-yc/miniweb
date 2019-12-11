@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>Todo</title>
+
+        <link rel="stylesheet" href="./style.css">
+        <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/dark-hive/jquery-ui.css">
+        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <script src="./script.js" async></script>
+    </head>
+
+    <body>
+        <div id="todo-matrix">
+            <h1 class="title">TODO Matrix</h1>
+            <div class="row">
+                <div class="square">
+                    <textarea class="square-input"></textarea>
+                </div>
+                <div class="square">
+                    <textarea class="square-input"></textarea>
+                </div>
+            </div>
+            <div class="row">
+                <div class="square">
+                    <textarea class="square-input"></textarea>
+                </div>
+                <div class="square">
+                    <textarea class="square-input"></textarea>
+                </div>
+            </div>
+        </div>
+        <div id="todo-list" class="column">
+            <div class="padded">
+                <h1 class="title">TODO List</h1>
+                <div class="list">
+                    <div class="row">
+                        <input type="text" name="score" value="0" readonly>
+                        <input type="text" name="name" placeholder="Task (e.g. code a todo list app)">
+                        <input type="date" name="date" placeholder="Due (Click to select)" required>
+                        <input type="text" name="priority" placeholder="Priority">
+                        <!--<div class="button">X</div>-->
+                        <input class="remove-item" type="button" value="X">
+                    </div>
+                </div>
+                <div class="row">
+                    <input class="fluid add-item" type="button" value="+">
+                    <input class="fluid sort-by-score" type="button" value="sort">
+                <div>
+            </div>
+        </div>
+    </body>
+</html>
