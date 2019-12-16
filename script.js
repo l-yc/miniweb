@@ -9,10 +9,17 @@ function docReady(fn) {
 }
 
 docReady(() => {
-    let lim = [1800, 300];
-    let msg = ["Get to work", "Take a break"];
-    let prev = new Date().getTime(), elapsed = 0, mode = 0;
-    let stats = { start: prev, total: 0 };
+    const lim = [1800, 300];
+    const msg = ["Get to work", "Take a break"];
+    let prev, elapsed, mode;
+    let stats;
+
+    function init() {
+        prev = new Date().getTime();
+        elapsed = 0;
+        mode = 0;
+        stats = { start: prev, total: 0 };
+    }
 
     function setMode(now, x) {
         mode = x;
@@ -34,8 +41,9 @@ docReady(() => {
     function updateDisplay() {
         document.getElementById('mode').textContent = msg[mode];
 
-        let min = Math.floor(elapsed/60).toString().padStart(2,'0');
-        let sec = (elapsed % 60).toString().padStart(2,'0');
+        let remaining = lim[mode] - elapsed;
+        let min = Math.floor(remaining/60).toString().padStart(2,'0');
+        let sec = (remaining % 60).toString().padStart(2,'0');
         let formatted = `${min}:${sec}`;
         document.getElementById('clock').textContent = formatted;
 
@@ -46,7 +54,55 @@ docReady(() => {
         document.getElementById('stats-total').textContent = formatted;
     }
 
+    init();
     setInterval(tickClock, 200);
+
+    let settingsModal = `
+        <div class="modal">
+            <div class="content">
+                <div class="title">
+                    Settings
+                </div>
+                <form>
+                    <div class="row">
+                        <label>Work Time</label>
+                        <input type="number" name="workTime">s
+                    </div>
+                    <div class="row">
+                        <label>Break Time</label>
+                        <input type="number" name="breakTime">s<br>
+                    </div>
+
+                    <div class="row submit">
+                        <input type="button" value="Ok">
+                        <input type="button" value="Cancel">
+                    </div>
+                </form>
+            </div>
+        </div>
+    `;
+
+    let infoModal = `
+        <div class="modal">
+            <div class="content">
+                <div class="title">
+                    Info
+                </div>
+                <form>
+                    <p>Pomorodo Clock with 2 modes and notifications.</p>
+                    <p>Follow the project on <a href="https://github.com/l-yc/miniweb-eyes">github</a>!</p>
+
+                    <div class="row submit">
+                        <input type="button" value="Ok">
+                    </div>
+                </form>
+            </div>
+        </div>
+    `;
+
+    document.getElementById('do-restart').onclick = () => {
+        init();
+    };
 
     document.getElementById('toggle-work').onclick = () => {
         setMode(new Date().getTime(), 0);
@@ -56,8 +112,36 @@ docReady(() => {
         setMode(new Date().getTime(), 1);
     };
 
-    document.getElementById('show-help').onclick = () => {
-        alert('intervals (sec): ' + lim);
+    document.getElementById('show-settings').onclick = () => {
+        let modal = document.createElement('div');
+        modal.innerHTML = settingsModal;
+
+        let workTime = modal.querySelector('input[name="workTime"]');
+        let breakTime = modal.querySelector('input[name="breakTime"]');
+        workTime.value = lim[0];
+        breakTime.value = lim[1];
+
+        modal.querySelector('input[value="Ok"]').addEventListener('click', () => {
+            lim[0] = workTime.value;
+            lim[1] = breakTime.value;
+            document.body.removeChild(modal);
+            setMode(new Date().getTime(), 0);
+        });
+
+        modal.querySelector('input[value="Cancel"]').addEventListener('click', () => {
+            document.body.removeChild(modal);
+        });
+
+        document.body.appendChild(modal);
+    };
+
+    document.getElementById('show-info').onclick = () => {
+        let modal = document.createElement('div');
+        modal.innerHTML = infoModal;
+        modal.querySelector('input[value="Ok"]').addEventListener('click', () => {
+            document.body.removeChild(modal);
+        });
+        document.body.appendChild(modal);
     };
 });
 
