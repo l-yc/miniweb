@@ -11,6 +11,7 @@ function docReady(fn) {
 docReady(() => {
     const lim = [1800, 300];
     const msg = ["Get to work", "Take a break"];
+    let isSoundOn = false;
     let prev, elapsed, mode;
     let stats;
 
@@ -26,6 +27,11 @@ docReady(() => {
         elapsed = 0;
         prev = now;
         new Notification(msg[mode]);
+	console.log(isSoundOn)
+	if (isSoundOn){
+		var audio = new Audio('bell.mp3');
+		audio.play();
+	}
     }
 
     function tickClock() {
@@ -72,6 +78,10 @@ docReady(() => {
                         <label>Break Time</label>
                         <input type="number" name="breakTime">s<br>
                     </div>
+		    <div class="row">
+		    	<label>Play sound</label>
+			<input type="checkbox" name="playSound">
+		    </div>
 
                     <div class="row submit">
                         <input type="button" value="Ok">
@@ -118,12 +128,15 @@ docReady(() => {
 
         let workTime = modal.querySelector('input[name="workTime"]');
         let breakTime = modal.querySelector('input[name="breakTime"]');
+        let playSound = modal.querySelector('input[name="playSound"]');
         workTime.value = lim[0];
         breakTime.value = lim[1];
+	playSound.checked = isSoundOn;
 
         modal.querySelector('input[value="Ok"]').addEventListener('click', () => {
             lim[0] = workTime.value;
             lim[1] = breakTime.value;
+	    isSoundOn = playSound.checked;
             document.body.removeChild(modal);
             setMode(new Date().getTime(), 0);
         });
