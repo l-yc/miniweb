@@ -1,0 +1,161 @@
+@import url('https://fonts.googleapis.com/css?family=Bitter&display=swap');
+
+:root {
+    --primary-color: #222;
+    --primary-tone: #333;
+    --primary-shade: #111;
+    --secondary-color: #ccc;
+}
+
+html, body {
+    height: 100%;
+    font-family: 'Bitter', serif;
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+    text-align: center;
+}
+
+h1, h3 {
+    margin: 8px auto;
+}
+
+#levelConfig input[type="text"] {
+    background-color: var(--primary-tone);
+    color: var(--secondary-color);
+    border: solid 1.5px var(--primary-shade);
+    border-radius: 3px;
+    padding: 2px 4px;
+}
+
+#levelConfig input[type="submit"] {
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+    border: solid 1.5px var(--secondary-color);
+    border-radius: 3px;
+    padding: 2px 8px;
+}
+
+#levelConfig input[type="submit"]:hover {
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+    cursor: pointer;
+    transition: all 0.12s ease-in;
+}
+
+.modal {
+    background-color: rgba(0,0,0,0.7);
+    z-index: 9001;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal > .content {
+    background-color: var(--primary-color);
+    border: solid 4px var(--primary-color);
+    border-radius: 8px;
+    padding: 32px;
+    max-width: 50vw;
+}
+
+.modal > .content > .title {
+    font-size: 1.5em;
+    font-weight: bold;
+    margin-bottom: 16px;
+}
+
+.canvas {
+    min-height: 70%;
+    max-width: 100%;
+}
+
+#board, #lab {
+    background-color: var(--primary-tone);
+    max-width: 800px;
+    height: 40vh;
+    margin: 8px auto;
+    padding: 8px;
+    border-radius: 4px;
+}
+
+#board {
+    display: flex;
+    flex-flow: row nowrap;
+}
+
+#board > div {
+    flex: 1;
+    display: flex;
+    flex-flow: column nowrap;
+}
+
+#board > div > .canvas {
+    overflow-y: scroll;
+    flex: 1;
+    max-height: 100px;
+}
+
+#lab {
+    display: flex;
+    flex-flow: column nowrap;
+}
+
+#lab > .canvas {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#lab > #controls {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+}
+
+#lab > #controls > .circular.button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    height: 48px;
+    width: 48px;
+    border: solid 2px var(--primary-color);
+    border-radius: 100%;
+    margin: 2px;
+}
+
+#lab > #controls > .circular.button:hover {
+    border-color: var(--secondary-color);
+    box-shadow: 0 0 1px 1px var(--secondary-color);
+    cursor: pointer;
+    transition: all 0.12s ease-in;
+}
+
+.red {
+    background-color: #ff0000;
+}
+
+.orange {
+    background-color: #ff7f00;
+}
+
+.yellow {
+    background-color: #ffff00;
+}
+
+.green {
+    background-color: #00ff00;
+}
+
+.blue {
+    background-color: #0000ff;
+}
+
+.violet {
+    background-color: #7f00ff;
+}
