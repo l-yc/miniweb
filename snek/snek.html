@@ -8,38 +8,44 @@
     </head>
     <body>
         <!-- page content -->
-        <h1>Snek</h1>
-        <div id="levelConfig">
-            <input type="text" name="rule" placeholder="Rule...">
-            <input type="submit" name="applyRule" value="Apply Rule">
-            <input type="submit" name="infoRule" value="Help">
-        </div>
-        <div id="board">
-            <div class="good">
-                <h2>Good</h2>
-                <div class="canvas"></div>
-            </div>
-            <div class="bad">
-                <h2>Bad</h2>
-                <div class="canvas"></div>
-            </div>
-        </div>
-        <div id="lab">
-            <div class="canvas"></div>
-            <div id="controls">
-                <div data-code="R" class="red circular addSnek button"></div>
-                <div data-code="O" class="orange circular addSnek button"></div>
-                <div data-code="Y" class="yellow circular addSnek button"></div>
-                <div data-code="G" class="green circular addSnek button"></div>
-                <div data-code="B" class="blue circular addSnek button"></div>
-                <div data-code="V" class="violet circular addSnek button"></div>
-                <div id="deleteSnek" class="circular button">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-delete"><path d="M21 4H8l-7 8 7 8h13a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2z"></path><line x1="18" y1="9" x2="12" y2="15"></line><line x1="12" y1="9" x2="18" y2="15"></line></svg>
+        <div id="game">
+            <h1>Snek</h1>
+            <div id="board">
+                <div class="good">
+                    <h2>Good</h2>
+                    <div class="canvas"></div>
                 </div>
-                <div id="checkSnek" class="circular button">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <div class="bad">
+                    <h2>Bad</h2>
+                    <div class="canvas"></div>
                 </div>
             </div>
+            <div id="lab">
+                <div class="canvas"></div>
+                <div id="controls">
+                    <div data-code="R" class="red circular addSnek button"></div>
+                    <div data-code="O" class="orange circular addSnek button"></div>
+                    <div data-code="Y" class="yellow circular addSnek button"></div>
+                    <div data-code="G" class="green circular addSnek button"></div>
+                    <div data-code="B" class="blue circular addSnek button"></div>
+                    <div data-code="V" class="violet circular addSnek button"></div>
+                    <div id="deleteSnek" class="circular button">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-delete"><path d="M21 4H8l-7 8 7 8h13a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2z"></path><line x1="18" y1="9" x2="12" y2="15"></line><line x1="12" y1="9" x2="18" y2="15"></line></svg>
+                    </div>
+                    <div id="checkSnek" class="circular button">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="sidebar">
+            <h2>Stuff</h2>
+            <form id="levelConfig">
+                <label>Rule</label>
+                <input type="text" name="rule" placeholder="Rule...">
+                <input type="button" name="applyRule" value="Apply Rule">
+                <input type="button" name="infoRule" value="Help">
+            </form>
         </div>
     </body>
 </html>

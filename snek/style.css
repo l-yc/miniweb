@@ -5,6 +5,7 @@
     --primary-tone: #333;
     --primary-shade: #111;
     --secondary-color: #ccc;
+    --secondary-tone: #fff;
 }
 
 html, body {
@@ -15,30 +16,68 @@ html, body {
     text-align: center;
 }
 
+body {
+    display: flex;
+    flex-flow: row nowrap;
+}
+
 h1, h3 {
     margin: 8px auto;
 }
 
-#levelConfig input[type="text"] {
+form input {
     background-color: var(--primary-tone);
     color: var(--secondary-color);
-    border: solid 1.5px var(--primary-shade);
-    border-radius: 3px;
-    padding: 2px 4px;
+    border: solid 1px var(--primary-tone);
+    border-radius: 2px;
+
+    font-size: inherit;
+    padding: 4px 8px;
+    margin: auto 4px;
 }
 
-#levelConfig input[type="submit"] {
+form input[type="text"] {
+    padding: 8px 16px;
+}
+
+form input[type="button"] {
+    flex: 0;
+    min-width: 100px;
     background-color: var(--primary-color);
-    color: var(--secondary-color);
-    border: solid 1.5px var(--secondary-color);
-    border-radius: 3px;
-    padding: 2px 8px;
+    border: solid 2px var(--secondary-color);
+    border-radius: 2px;
+    transition: all 0.12s ease-in;
 }
 
-#levelConfig input[type="submit"]:hover {
+form input[type="button"]:hover {
     background-color: var(--secondary-color);
     color: var(--primary-color);
     cursor: pointer;
+
+    transition: all 0.12s ease-in;
+}
+
+form > .row {
+    padding: 4px 2px;
+}
+
+form > .submit {
+    margin-top: 16px;
+    justify-content: space-around;
+}
+
+a {
+    padding-bottom: 1px;
+    color: var(--secondary-color);
+    text-decoration: none;
+    box-shadow: 0 10px 0 -8px var(--secondary-color);
+    transition: all 0.12s ease-in;
+}
+
+a:hover, a:focus {
+    color: var(--secondary-tone);
+    box-shadow: 0 2px 0 0 var(--secondary-tone);
+    text-decoration: none;
     transition: all 0.12s ease-in;
 }
 
@@ -67,6 +106,10 @@ h1, h3 {
     font-size: 1.5em;
     font-weight: bold;
     margin-bottom: 16px;
+}
+
+#game {
+    flex: 1;
 }
 
 .canvas {
@@ -136,6 +179,21 @@ h1, h3 {
     transition: all 0.12s ease-in;
 }
 
+.row {
+    flex: 1;
+    display: flex;
+    flex-flow: row;
+    align-items: center;
+}
+
+.column {
+    flex: 1;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+}
+
+
 .red {
     background-color: #ff0000;
 }
@@ -158,4 +216,10 @@ h1, h3 {
 
 .violet {
     background-color: #7f00ff;
+}
+
+#sidebar {
+    flex: 1;
+    max-width: 300px;
+    border-left: solid 2px var(--secondary-color);
 }
