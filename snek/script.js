@@ -8,24 +8,51 @@ function docReady(fn) {
     }
 }
 
-let rule = (seq) => {
-    let ok = true;
-    for (let i = 0; i < seq.length; ++i) {
-        ok &= (seq[i] == 'R');
-    }
-    return ok;
+let level = {
+  name: 'default',
+  rule: (seq) => {
+      let ok = true;
+      for (let i = 0; i < seq.length; ++i) {
+          ok &= (seq[i] == 'R');
+      }
+      return ok;
+  },
+  win: () => {
+      return 'RRRRRRR';
+  },
+  lose: () => {
+      return 'ROYGBIV';
+  },
 };
 
-docReady(() => {
-    let ruleEnc = document.querySelector('#levelConfig input[name="rule"]');
-    ruleEnc.value = btoa(rule.toString()).toString();
-    console.log(rule.toString());
+function encodeLevel(lvl) {
+  return [
+    lvl.name,
+    lvl.rule,
+    lvl.win,
+    lvl.lose,
+  ].map(e => btoa(e).toString()).join('.');
+}
 
-    document.querySelector('#levelConfig input[name="applyRule"]').addEventListener('click', () => {
-        let ruleEnc = document.querySelector('#levelConfig input[name="rule"]').value;
-        rule = eval(atob(ruleEnc));
-        console.log(ruleEnc);
-        console.log(rule);
+function decodeLevel(enc) {
+  let e = enc.split('.').map(e => atob(e));
+  return {
+    name: e[0],
+    rule: eval(e[1]),
+    win: eval(e[2]),
+    lose: eval(e[3])
+  };
+}
+
+docReady(() => {
+    let levelEnc = document.querySelector('#levelConfig input[name="level"]');
+    levelEnc.value = encodeLevel(level);
+
+    document.querySelector('#levelConfig input[name="applyLevel"]').addEventListener('click', () => {
+        let levelEnc = document.querySelector('#levelConfig input[name="level"]').value;
+        level = decodeLevel(levelEnc);
+        console.log(levelEnc);
+        console.log(level);
 
         [
             document.querySelector('#lab > .canvas'),
@@ -37,6 +64,32 @@ docReady(() => {
                     canvas.removeChild(canvas.firstChild);
                 }
             });
+
+        let levelName = document.querySelector('#levelName');
+        levelName.innerHTML = level.name;
+    });
+
+    document.querySelector('#levelConfig input[name="challengeLevel"]').addEventListener('click', () => {
+        console.log('clearing snek');
+        let canvas = document.querySelector('#lab > .canvas');
+        while (canvas.lastChild) {
+            canvas.removeChild(canvas.lastChild);
+        }
+
+        for (let passed = 0; passed < 20; ++passed) {
+            let str, res = Math.random() < 0.5;
+            if (res) str = level.win();
+            else str = level.lose();
+            console.log('test item:', str, res);
+            for (let c of str) {
+                Array.from(document.getElementsByClassName('addSnek')).forEach(element => {
+                    if (element.dataset.code == c) {
+                        element.click();
+                    }
+                });
+            };
+          break;  // add wait for click
+        }
     });
 
     let infoModal = `
@@ -46,9 +99,9 @@ docReady(() => {
                     Info
                 </div>
                 <form>
-                    <p>Paste the base64 encoded string of a rule function here.</p>
-                    <p>To make a rule, write a javascript function taking in an array consisting of some sequence of 'R', 'O', 'Y', 'G', 'B', and 'V', that returns a boolean (true for good snek, false for bad snek) and call btoa() on stringified function (f.toString).</p>
-                    <p>Follow the project on <a href="https://github.com/l-yc/miniweb-snek">github</a>!</p>
+                    <p>Paste the encoded string of a level function here.</p>
+                    <p>To make a level, write a javascript object with property 'name' giving the level name and functions 'rule' taking in an array consisting of some sequence of 'R', 'O', 'Y', 'G', 'B', and 'V', that returns a boolean (true for good snek, false for bad snek), 'win' generating winning snakes, and 'lose' generating losing snakes. Pass the object into encodeLevel() (use the browser console) and save the output :)</p>
+                    <p>Follow the project on <a href="https://github.com/l-yc/miniweb">github</a>!</p>
 
                     <div class="row submit">
                         <input type="button" value="Ok">
@@ -57,7 +110,7 @@ docReady(() => {
             </div>
         </div>
     `;
-    document.querySelector('#levelConfig input[name="infoRule"]').addEventListener('click', () => {
+    document.querySelector('#levelConfig input[name="infoLevel"]').addEventListener('click', () => {
         let modal = document.createElement('div');
         modal.innerHTML = infoModal;
         modal.querySelector('input[value="Ok"]').addEventListener('click', () => {
@@ -159,7 +212,7 @@ docReady(() => {
         svg.setAttribute('height',48);
 
         svg.dataset.code = seq;
-        let res = rule(seq);
+        let res = level.rule(seq);
         console.log(seq + " ruled " + res);
 
         console.log(svg);
