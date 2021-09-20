@@ -1,0 +1,144 @@
+html, body{
+    height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    background-color: #222;
+    color: #ccc;
+
+    font-family: sans-serif;
+}
+
+.circular {
+    border-radius: 100%;
+}
+
+#sidebar {
+    position: absolute;
+    right: 0;
+    padding: 16px;
+}
+
+.button {
+    height: 48px;
+    width: 48px;
+    padding: 4px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 1px 4px 1px #000;
+    margin: 16px 0;
+    transition: all 0.2s ease-in;
+}
+
+.button:hover {
+    font-weight: bold;
+    cursor: pointer;
+    color: #555;
+    background-color: #ccc;
+    box-shadow: 0 1px 4px 1px #ccc;
+    transition: all 0.2s ease-in;
+}
+
+.modal {
+    background-color: rgba(0,0,0,0.7);
+    z-index: 9001;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal > .content {
+    background-color: #222;
+    border: solid 4px #222;
+    border-radius: 8px;
+    //box-shadow: 0 0 0 4px #ccc;
+    padding: 32px;
+}
+
+.modal > .content > .title {
+    font-size: 1.5em;
+    font-weight: bold;
+    margin-bottom: 16px;
+}
+
+form {
+    display: flex;
+    flex-flow: column;
+}
+
+form input {
+    background-color: #333;
+    color: #ccc;
+    border: solid 1px #333;
+    border-radius: 2px;
+    max-width: 100px;
+
+    font-size: inherit;
+    padding: 4px 8px;
+    margin: auto 4px;
+}
+
+form input[type="button"] {
+    flex: 1;
+    background-color: #222;
+    border: solid 2px #ccc;
+    border-radius: 2px;
+    transition: all 0.12s ease-in;
+}
+
+form input[type="button"]:hover {
+    background-color: #ccc;
+    color: #222;
+    cursor: pointer;
+
+    transition: all 0.12s ease-in;
+}
+
+form > .row {
+    padding: 4px 2px;
+}
+
+form > .submit {
+    margin-top: 16px;
+    justify-content: space-between;
+}
+
+.row {
+    flex: 1;
+    display: flex;
+    flex-flow: row;
+    align-items: center;
+}
+
+.column {
+    flex: 1;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+}
+
+a {
+    padding-bottom: 1px;
+    color: #ccc;
+    text-decoration: none;
+    box-shadow: 0 10px 0 -8px #ccc;
+    transition: all 0.12s ease-in;
+}
+
+a:hover, a:focus {
+    color: #fff;
+    box-shadow: 0 2px 0 0 #fff;
+    text-decoration: none;
+    transition: all 0.12s ease-in;
+}
