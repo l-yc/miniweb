@@ -8,6 +8,17 @@ function docReady(fn) {
   }
 }
 
+const ignoreOptions = [
+  [ 'APA Citations', /([ ]?\((([^)]+?,|)[ ]?[0-9]{4})+?\))/g ],
+];
+
+const optionsHTML = ignoreOptions.map(([label, _]) => `
+  <div class="row">
+    <input type="checkbox" name="${label}">
+    <label for="${label}">Ignore APA Citations</label>
+  </div>
+`).join('');
+
 const settingsModal = `
   <div class="modal">
     <div class="content">
@@ -15,10 +26,7 @@ const settingsModal = `
         Settings
       </div>
       <form>
-        <div class="row">
-          <input type="checkbox" name="APA-Citation">
-          <label for="APA-Citation">Ignore APA Citations</label>
-        </div>
+        ${optionsHTML}
 
         <div class="row submit">
           <input type="button" value="Ok">
@@ -29,16 +37,17 @@ const settingsModal = `
   </div>
 `;
 
-let ignoreList = [];
+let ignoreSet = new Map();
 
 docReady(() => {
-  console.log('ready');
   const input = document.querySelector("#input");
   const wordCount = document.querySelector("#word-count");
 
   const recalc = () => {
     let raw = input.value.trim();
-    ignoreList.forEach(x => { raw = raw.replace(x, ''); });
+    for (const [_, regexp] of ignoreSet.entries()) {
+      raw = raw.replace(regexp, '');
+    }
     const tokens = raw.split(/\s/).filter(x => x.length);
     console.log(tokens);
     wordCount.innerText = tokens.length;
@@ -52,18 +61,20 @@ docReady(() => {
     let modal = document.createElement('div');
     modal.innerHTML = settingsModal;
 
-    let apaCitation = modal.querySelector('input[name="APA-Citation"]');
-    const apaRegex = /([ ]?\((([^)]+?,|)[ ]?[0-9]{4})+?\))/g;
-    console.log(ignoreList.findIndex(x => String(x) === String(apaRegex)));
-    apaCitation.checked = ignoreList.findIndex(x => String(x) === String(apaRegex)) !== -1;
+    ignoreOptions.forEach(([label, regexp]) => {
+      let el = modal.querySelector(`input[name="${label}"]`);
+      el.checked = ignoreSet.has(label);
+    });
 
     modal.querySelector('input[value="Ok"]').addEventListener('click', () => {
-      const idx = ignoreList.findIndex(x => String(x) === String(apaRegex));
-      if (apaCitation.checked) {
-        if (idx === -1) ignoreList.push(apaRegex);
-      } else {
-        if (idx !== -1) ignoreList.splice(idx, 1);
-      }
+      ignoreOptions.forEach(([label, regexp]) => {
+        let el = modal.querySelector(`input[name="${label}"]`);
+        if (el.checked) {
+          ignoreSet.set(label, regexp);
+        } else {
+          ignoreSet.delete(label);
+        }
+      });
 
       document.body.removeChild(modal);
       recalc();
