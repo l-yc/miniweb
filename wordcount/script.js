@@ -32,6 +32,7 @@ const settingsModal = `
 let ignoreList = [];
 
 docReady(() => {
+  console.log('ready');
   const input = document.querySelector("#input");
   const wordCount = document.querySelector("#word-count");
 
@@ -39,7 +40,7 @@ docReady(() => {
     let raw = input.value.trim();
     ignoreList.forEach(x => { raw = raw.replace(x, ''); });
     const tokens = raw.split(/\s/).filter(x => x.length);
-    //console.log(tokens);
+    console.log(tokens);
     wordCount.innerText = tokens.length;
   }
 
@@ -52,11 +53,12 @@ docReady(() => {
     modal.innerHTML = settingsModal;
 
     let apaCitation = modal.querySelector('input[name="APA-Citation"]');
-    const apaRegex = /\((([A-z]+)(, [A-z]+)*( & [A-z]+)? [0-9]{4})(; ([A-z]+)(, [A-z]+)*( & [A-z]+)? [0-9]{4})*\)/g;
-    apaCitation.checked = ignoreList.indexOf(apaRegex) != -1;
+    const apaRegex = /([ ]?\((([^)]+?,|)[ ]?[0-9]{4})+?\))/g;
+    console.log(ignoreList.findIndex(x => String(x) === String(apaRegex)));
+    apaCitation.checked = ignoreList.findIndex(x => String(x) === String(apaRegex)) !== -1;
 
     modal.querySelector('input[value="Ok"]').addEventListener('click', () => {
-      const idx = ignoreList.indexOf(apaRegex);
+      const idx = ignoreList.findIndex(x => String(x) === String(apaRegex));
       if (apaCitation.checked) {
         if (idx === -1) ignoreList.push(apaRegex);
       } else {
