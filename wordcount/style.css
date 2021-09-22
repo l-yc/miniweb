@@ -142,3 +142,13 @@ a:hover, a:focus {
     text-decoration: none;
     transition: all 0.12s ease-in;
 }
+
+ul#stats-box {
+  display: flex;
+  list-style: none;
+  padding: 0;
+}
+
+ul#stats-box li {
+  padding: 0 8px;
+}

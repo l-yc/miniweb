@@ -42,15 +42,18 @@ let ignoreSet = new Map();
 docReady(() => {
   const input = document.querySelector("#input");
   const wordCount = document.querySelector("#word-count");
+  const charCount = document.querySelector("#char-count");
 
   const recalc = () => {
-    let raw = input.value.trim();
+    let raw = input.value;
     for (const [_, regexp] of ignoreSet.entries()) {
       raw = raw.replace(regexp, '');
     }
     const tokens = raw.split(/\s/).filter(x => x.length);
     console.log(tokens);
     wordCount.innerText = tokens.length;
+
+    charCount.innerText = raw.length;
   }
 
   input.oninput = (e) => recalc();
